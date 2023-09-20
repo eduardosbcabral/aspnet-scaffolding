@@ -1,4 +1,5 @@
-﻿using Scaffolding.Extensions.Cors;
+﻿using Microsoft.AspNetCore.Mvc;
+using Scaffolding.Extensions.Cors;
 using Scaffolding.Extensions.CultureInfo;
 using Scaffolding.Extensions.Docs;
 using Scaffolding.Extensions.ExceptionHandler;
@@ -13,7 +14,6 @@ using Scaffolding.Models;
 using Scaffolding.Utilities;
 using Serilog;
 using Serilog.Context;
-using System.Collections.Specialized;
 using System.Reflection;
 
 namespace Scaffolding;
@@ -62,6 +62,12 @@ public static class Api
         }
 
         mvc.SetupScaffoldingJsonSettings(apiSettings, httpContextAccessor);
+
+        builder.Services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
+            options.SuppressMapClientErrors = true;
+        });
 
         return builder;
     }
