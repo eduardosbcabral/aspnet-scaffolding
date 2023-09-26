@@ -21,7 +21,7 @@ namespace Scaffolding.Extensions.Healthcheck
                     ResponseWriter = WriteResponse
                 };
 
-                var path = new PathString($"/{healthcheckSettings.Path?.Trim('/')}");
+                var path = new PathString($"{apiSettings.GetFullPath()}/{healthcheckSettings.Path?.Trim('/')}");
                 app.UseHealthChecks(path, options);
             }
         }
