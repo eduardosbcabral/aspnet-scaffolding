@@ -20,9 +20,20 @@ namespace Scaffolding;
 
 public static class Api
 {
-    public static WebApplicationBuilder Initialize(string[] args = null, string customUrls = null, params Assembly[] executingAssemblies)
+    public static WebApplicationBuilder Initialize(DefaultApiSettings defaultApiSettings, string[] args = null, string customUrls = null, params Assembly[] executingAssemblies)
     {
+        if (defaultApiSettings == null)
+        {
+            throw new Exception("Default api settings is required.");
+        }
+
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Configuration
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{EnvironmentUtility.GetCurrentEnvironment()}.json", optional: true, reloadOnChange: true)
+            .AddEnvironmentVariables(defaultApiSettings.EnvironmentVariablesPrefix);
 
         var apiSettings = builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>();
         if (apiSettings == null)
@@ -30,16 +41,12 @@ public static class Api
             throw new Exception("'ApiSettings' section in the appsettings.json is required.");
         }
 
-        Console.WriteLine("==== Api Settings ====");
+        apiSettings.EnvironmentVariablesPrefix = defaultApiSettings.EnvironmentVariablesPrefix;
+
+        Console.WriteLine("==== Api ====");
         Console.WriteLine("Name: " + apiSettings.Name);
         Console.WriteLine("Path: " + apiSettings.GetFullPath());
         Console.WriteLine("EnvironmentVariablesPrefix: " + apiSettings.EnvironmentVariablesPrefix);
-        
-        builder.Configuration
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{EnvironmentUtility.GetCurrentEnvironment()}.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables(apiSettings.EnvironmentVariablesPrefix);
 
         builder.WebHost.UseUrls(customUrls ?? $"http://*:{apiSettings.Port}");
         builder.Services.AddSingleton(apiSettings);
