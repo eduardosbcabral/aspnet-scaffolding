@@ -19,6 +19,8 @@ public static class LoggingServiceExtension
         var logSettings = builder.Configuration.GetSection("LogSettings").Get<LogSettings>();
         var healthcheckSettings = builder.Configuration.GetSection("HealthcheckSettings").Get<HealthcheckSettings>();
 
+        if (logSettings == null) return;
+
         builder.Services.AddSingleton(logSettings);
 
         if (string.IsNullOrWhiteSpace(apiSettings.Domain))

@@ -24,6 +24,8 @@ public static class GracefulShutdownExtensions
     {
         var shutdownSettings = builder.Configuration.GetSection("ShutdownSettings").Get<ShutdownSettings>();
 
+        if (shutdownSettings == null) return;
+
         builder.Services.AddSingleton(shutdownSettings);
         builder.Services.AddSingleton(shutdownSettings.GracefulShutdownState);
         builder.Services.AddSingleton<IRequestsCountProvider>(shutdownSettings.GracefulShutdownState);

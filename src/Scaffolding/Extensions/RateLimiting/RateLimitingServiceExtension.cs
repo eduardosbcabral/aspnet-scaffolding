@@ -9,7 +9,7 @@ public static class RateLimitingServiceExtension
     {
         var rateLimitingSettings = builder.Configuration.GetSection("RateLimitingSettings").Get<RateLimitingSettings>();
 
-        if (rateLimitingSettings?.Enabled == false) { return; }
+        if (rateLimitingSettings == null || rateLimitingSettings?.Enabled == false) return;
 
         builder.Services.AddSingleton(rateLimitingSettings);
 
