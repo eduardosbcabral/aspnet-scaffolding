@@ -31,6 +31,8 @@ public static class Api
         }
 
         builder.Configuration
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{EnvironmentUtility.GetCurrentEnvironment()}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables(apiSettings.EnvironmentVariablesPrefix);
 
