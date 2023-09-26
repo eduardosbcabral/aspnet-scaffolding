@@ -30,6 +30,11 @@ public static class Api
             throw new Exception("'ApiSettings' section in the appsettings.json is required.");
         }
 
+        Console.WriteLine("==== Api Settings ====");
+        Console.WriteLine("Name: " + apiSettings.Name);
+        Console.WriteLine("Path: " + apiSettings.GetFullPath());
+        Console.WriteLine("EnvironmentVariablesPrefix: " + apiSettings.EnvironmentVariablesPrefix);
+        
         builder.Configuration
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true)

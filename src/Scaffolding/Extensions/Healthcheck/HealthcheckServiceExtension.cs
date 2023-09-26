@@ -8,10 +8,9 @@ public static class HealthcheckServiceExtension
         
         if (healthcheckSettings == null) return null;
         
-        builder.Services.AddSingleton(healthcheckSettings);
-
         if (healthcheckSettings?.Enabled == true)
         {
+            builder.Services.AddSingleton(healthcheckSettings);
             return builder.Services.AddHealthChecks();
         }
 
