@@ -62,7 +62,9 @@ public static class LoggingServiceExtension
         EnrichProperties(loggerConfiguration, outputConfiguration);
         IgnoreRoutes(apiSettings, logSettings, healthcheckSettings);
 
-        Log.Logger = loggerConfiguration.CreateLogger();
+        var logger = loggerConfiguration.CreateLogger();
+        builder.Services.AddSingleton<Serilog.ILogger>(logger);
+        Log.Logger = logger;
 
         var config = new LogConfiguration
         {

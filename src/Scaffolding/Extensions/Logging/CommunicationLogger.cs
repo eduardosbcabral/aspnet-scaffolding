@@ -143,8 +143,6 @@ public class CommunicationLogger : ICommunicationLogger
             var informationTitle = this.LogConfiguration.InformationTitle ?? DefaultInformationTitle;
             Log.Logger.Information(informationTitle);
         }
-
-        Log.CloseAndFlush();
     }
 
     /// <summary>
