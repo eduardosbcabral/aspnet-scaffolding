@@ -26,8 +26,11 @@ namespace Scaffolding.Extensions.Mapper
             foreach (var library in dependencies)
             {
                 var name = new AssemblyName(library.Name);
-                var assembly = Assembly.Load(name);
-                assemblies.Add(assembly);
+                try
+                {
+                    var assembly = Assembly.Load(name);
+                    assemblies.Add(assembly);
+                } catch { }
             }
 
             assemblies.AddRange(customAssemblies);

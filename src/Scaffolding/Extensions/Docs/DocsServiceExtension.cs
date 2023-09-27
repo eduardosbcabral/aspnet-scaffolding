@@ -84,6 +84,6 @@ public static class DocsServiceExtension
 
         docsSettings.SwaggerJsonTemplateUrl = "/swagger/{documentName}/swagger.json";
         docsSettings.SwaggerJsonUrl = $"/swagger/{version}/swagger.json";
-        docsSettings.RedocUrl = apiSettings.GetFullPath().Trim('/') + "/docs";
+        docsSettings.RedocUrl = apiSettings.GetFullPath() + "/docs";
     }
 }

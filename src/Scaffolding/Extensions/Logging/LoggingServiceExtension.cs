@@ -140,7 +140,7 @@ public static class LoggingServiceExtension
             ignoredRoutes = DocsServiceExtension.DocsSettings.GetDocsFinalRoutes().ToList();
         }
 
-        if (healthcheckSettings.LogEnabled == false)
+        if (healthcheckSettings.Enabled == true && healthcheckSettings.LogEnabled == false)
         {
             ignoredRoutes.Add(HealthcheckMiddleware.GetFullPath(apiSettings, healthcheckSettings));
         }
