@@ -1,10 +1,7 @@
 ﻿using Scaffolding;
 using Scaffolding.Extensions.Healthcheck;
-using Scaffolding.Models;
 
-var apiSettings = new DefaultApiSettings("ScaffoldingApi_");
-
-var builder = Api.Initialize(apiSettings, args);
+var builder = Api.Initialize(args);
 
 builder.UseLogging();
 
