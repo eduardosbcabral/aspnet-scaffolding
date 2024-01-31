@@ -1,11 +1,14 @@
-﻿using System.Text.Json;
+﻿using Microsoft.AspNetCore.Http.Json;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 using Scaffolding.Configuration.Builders;
 using Scaffolding.Configuration.Settings.Implementations;
-using Scaffolding.Logging;
-using Scaffolding.Logging.Settings.Implementations;
 using Scaffolding.HealthCheck.Extensions;
-using Microsoft.AspNetCore.Http.Json;
+using Scaffolding.Logging.Formatter;
+using Scaffolding.Logging.Settings.Implementations;
+
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,13 +35,11 @@ services.AddSingletonScaffoldingServices(scaffoldingConfiguration);
 
 services.AddScaffoldingHealthChecks();
 
-builder.Services.AddLogging(x =>
-{
-    //x.AddConsoleFormatter();
-    x.AddJsonConsole();
-});
+builder.Logging
+    .AddConsole(x => x.FormatterName = nameof(CustomJsonConsoleFormatter))
+    .AddConsoleFormatter<CustomJsonConsoleFormatter, CustomJsonConsoleFormatterOptions>();
 
-builder.Services.AddHttpLogging(x => 
+builder.Services.AddHttpLogging(x =>
 {
     x.CombineLogs = true;
 });

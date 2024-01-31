@@ -43,11 +43,11 @@ public class LoggerBuilder
         return this;
     }
 
-    public LoggerBuilder WriteToConsoleSnakeCase()
-    {
-        LoggerConfiguration.WriteTo.Async(x => x.Console(new SnakeCaseRenderedCompactJsonFormatter()));
-        return this;
-    }
+    //public LoggerBuilder WriteToConsoleSnakeCase()
+    //{
+    //    LoggerConfiguration.WriteTo.Async(x => x.Console(new SnakeCaseRenderedCompactJsonFormatter()));
+    //    return this;
+    //}
 
     public LoggerBuilder WriteToConsolePascalCase()
     {
