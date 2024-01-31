@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Scaffolding.Configuration;
+﻿using Scaffolding.Configuration;
 
-namespace Scaffolding.AspNet.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionServiceExtensions
     {

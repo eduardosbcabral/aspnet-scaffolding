@@ -16,26 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\..\icon.png" Pack="true" PackagePath="" Visible="False" />
     <None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="appsettings.Development.json" />
-    <Content Remove="appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="appsettings.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Scaffolding.AspNet\Scaffolding.AspNet.csproj" />
     <ProjectReference Include="..\Scaffolding.Configuration\Scaffolding.Configuration.csproj" />
+    <ProjectReference Include="..\Scaffolding.HealthCheck\Scaffolding.HealthCheck.csproj" />
     <ProjectReference Include="..\Scaffolding.Logging\Scaffolding.Logging.csproj" />
   </ItemGroup>
   

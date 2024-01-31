@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
 using Scaffolding.Configuration.Implementations;
-using Scaffolding.Shared;
 
 namespace Scaffolding.Configuration.Builders;
 
@@ -23,12 +22,6 @@ public class ScaffoldingConfigurationBuilder(IConfiguration configuration)
         if (_settings.Any(s => s.GetType() == settings.GetType()))
         {
             return this;
-        }
-
-        var isValid = settings.IsValid(out var validationMessage);
-        if (!isValid)
-        {
-            throw new ScaffoldingException(validationMessage);
         }
 
         _settings.Add(settings);

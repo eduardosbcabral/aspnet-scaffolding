@@ -1,8 +1,11 @@
-﻿using Scaffolding.AspNet.Extensions;
+﻿using System.Text.Json;
+
 using Scaffolding.Configuration.Builders;
 using Scaffolding.Configuration.Settings.Implementations;
 using Scaffolding.Logging;
 using Scaffolding.Logging.Settings.Implementations;
+using Scaffolding.HealthCheck.Extensions;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,18 +17,50 @@ var scaffoldingConfiguration = new ScaffoldingConfigurationBuilder(builder.Confi
 var applicationSettings = scaffoldingConfiguration.GetSettings<ApplicationSettings>();
 var logSettings = scaffoldingConfiguration.GetSettings<LogSettings>();
 
-var logger = LoggerBuilder.Instance()
-    .WithDefaultConfiguration()
-    .WithProperty("Application", applicationSettings.Name)
-    .WithProperty("Domain", applicationSettings.Domain)
-    .WriteToConsoleSnakeCase()
-    .Build();
+//var logger = LoggerBuilder.Instance()
+//    .WithDefaultConfiguration()
+//    .WithProperty("Application", applicationSettings.Name)
+//    .WithProperty("Domain", applicationSettings.Domain)
+//    .WriteToConsoleSnakeCase()
+//    .Build();
 
 var services = builder.Services;
 
 services.AddSingletonScaffoldingServices(scaffoldingConfiguration);
 
-services.AddScoped(x => logger);
+//services.AddScoped(x => logger);
+
+services.AddScaffoldingHealthChecks();
+
+builder.Services.AddLogging(x =>
+{
+    //x.AddConsoleFormatter();
+    x.AddJsonConsole();
+});
+
+builder.Services.AddHttpLogging(x => 
+{
+    x.CombineLogs = true;
+});
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+});
+
+var app = builder.Build();
+
+app.UseScaffoldingHealthCheck();
+
+app.UseHttpLogging();
+
+app.MapGet("/", () => "Application Running");
+
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+logger.LogInformation("Teste Template ILogger Microsoft Scaffolding");
+
+await app.RunAsync();
 
 //var builder = ScaffoldingApi.Initialize(args);
 
