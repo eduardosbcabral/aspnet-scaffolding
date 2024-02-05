@@ -23,6 +23,7 @@ public class ApplicationSettings(string section) : BaseSettings(section), IAppli
 
     /// <inheritdoc/>
     [Required]
+    [RegularExpression("^v.*\\d*$")]
     public string Version { get; set; }
 
     /// <inheritdoc/>

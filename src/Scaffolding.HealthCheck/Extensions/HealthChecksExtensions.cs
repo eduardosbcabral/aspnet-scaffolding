@@ -12,23 +12,6 @@ namespace Scaffolding.HealthCheck.Extensions;
 public static class HealthChecksExtensions
 {
     /// <summary>
-    /// Extends <see cref="IServiceCollection"/> to add default health checks.
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configure"></param>
-    /// <returns></returns>
-    public static IServiceCollection AddScaffoldingHealthChecks(
-        this IServiceCollection services,
-        Action<IHealthChecksBuilder>? configure = null)
-    {
-        var healthChecksBuilder = services.AddHealthChecks();
-
-        configure?.Invoke(healthChecksBuilder);
-
-        return services;
-    }
-
-    /// <summary>
     /// Extends <see cref="IApplicationBuilder"/> to use health checks.
     /// </summary>
     /// <param name="app"></param>

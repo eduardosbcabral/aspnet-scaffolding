@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Console;
@@ -6,13 +6,12 @@ using Microsoft.Extensions.Options;
 
 using System.Buffers;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 
-namespace Scaffolding.Logging.Formatter;
+namespace Scaffolding.Logging.Microsoft.Formatter;
 
 public sealed class CustomJsonConsoleFormatter : ConsoleFormatter, IDisposable
 {
@@ -58,9 +57,8 @@ public sealed class CustomJsonConsoleFormatter : ConsoleFormatter, IDisposable
                     DateTimeOffset dateTimeOffset = _formatterOptions.UseUtcTimestamp ? DateTimeOffset.UtcNow : DateTimeOffset.Now;
                     writer.WriteString(namingPolicy.ConvertName("Timestamp"), dateTimeOffset.ToString(timestampFormat));
                 }
-                writer.WriteNumber(namingPolicy.ConvertName(nameof(logEntry.EventId)), eventId);
+
                 writer.WriteString(namingPolicy.ConvertName(nameof(logEntry.LogLevel)), GetLogLevelString(logLevel));
-                writer.WriteString(namingPolicy.ConvertName(nameof(logEntry.Category)), category);
                 writer.WriteString(namingPolicy.ConvertName("Message"), message);
 
                 if (exception != null)
@@ -68,19 +66,28 @@ public sealed class CustomJsonConsoleFormatter : ConsoleFormatter, IDisposable
                     writer.WriteString(namingPolicy.ConvertName(nameof(Exception)), exception.ToString());
                 }
 
-                if (logEntry.State != null)
+                if (logEntry.State is IReadOnlyCollection<KeyValuePair<string, object>> stateProperties)
                 {
-                    writer.WriteStartObject(nameof(logEntry.State));
-                    writer.WriteString(namingPolicy.ConvertName("Message"), logEntry.State.ToString());
-                    if (logEntry.State is IReadOnlyCollection<KeyValuePair<string, object>> stateProperties)
+                    foreach (KeyValuePair<string, object> item in stateProperties)
                     {
-                        foreach (KeyValuePair<string, object> item in stateProperties)
+                        if (item.Value is IHeaderDictionary headers)
+                        {
+                            writer.WriteStartObject(namingPolicy.ConvertName(item.Key));
+
+                            foreach (var header in headers)
+                            {
+                                WriteItem(writer, new(header.Key, header.Value), namingPolicy, false);
+                            }
+
+                            writer.WriteEndObject();
+                        }
+                        else
                         {
                             WriteItem(writer, item, namingPolicy);
                         }
                     }
-                    writer.WriteEndObject();
                 }
+
                 WriteScopeInformation(writer, scopeProvider, namingPolicy);
                 writer.WriteEndObject();
                 writer.Flush();
@@ -134,9 +141,14 @@ public sealed class CustomJsonConsoleFormatter : ConsoleFormatter, IDisposable
         }
     }
 
-    private static void WriteItem(Utf8JsonWriter writer, KeyValuePair<string, object> item, JsonNamingPolicy namingPolicy)
+    private static void WriteItem(Utf8JsonWriter writer, KeyValuePair<string, object> item, JsonNamingPolicy namingPolicy, bool useNamingPolicy = true)
     {
-        var key = namingPolicy.ConvertName(item.Key);
+        var key = useNamingPolicy switch
+        {
+            true => namingPolicy.ConvertName(item.Key),
+            false => item.Key
+        };
+
         switch (item.Value)
         {
             case bool boolValue:

@@ -1,8 +1,9 @@
 name: pre-release
 
 on:
-  release:
-    types: [prereleased]
+  push:
+    tags:
+      - '*-alpha*'
 
 jobs:
   deploy:
@@ -20,8 +21,8 @@ jobs:
         
       - run: dotnet build -c Release src/Scaffolding.sln
       
-      - name: Create the Scaffolding package
-        run: dotnet pack -c Release --no-build -p:Version="${{github.ref_name}}-alpha.${{ env.NOW }}" -o src/Scaffolding/bin/Release src/Scaffolding/Scaffolding.csproj
+      - name: Create the Scaffolding packages
+        run: dotnet pack -c Release --no-build -p:Version=${{ github.REF_NAME }} -o src/Release src/Scaffolding.sln
 
-      - name: Publish the Scaffolding package
-        run: dotnet nuget push src/Scaffolding/bin/Release/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+      - name: Publish the Scaffolding packages
+        run: dotnet nuget push src/Release/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

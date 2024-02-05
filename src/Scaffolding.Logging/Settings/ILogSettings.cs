@@ -1,6 +1,6 @@
-﻿using Serilog.Events;
+﻿using Microsoft.Extensions.Logging;
 
-namespace Scaffolding.Configuration.Settings;
+namespace Scaffolding.Logging.Settings;
 
 public interface ILogSettings
 {
@@ -12,7 +12,7 @@ public interface ILogSettings
     /// <summary>
     /// Application minimum log level.
     /// </summary>
-    public LogEventLevel MinimumLevel { get; set; }
+    public LogLevel MinimumLevel { get; set; }
 
     /// <summary>
     /// Ignore log for specific routes.

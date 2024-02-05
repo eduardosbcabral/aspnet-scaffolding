@@ -6,13 +6,13 @@ namespace Scaffolding.Configuration.Implementations;
 /// <summary>
 /// Basic implementation of <see cref="ISettings"/>
 /// </summary>
-public abstract class BaseSettings : ISettings
+public class BaseSettings : ISettings
 {
     /// <summary>
     /// Creates a new instance of <see cref="BaseSettings"/>.
     /// </summary>
     /// <param name="section">The configuration section.</param>
-    protected BaseSettings(string section)
+    public BaseSettings(string section)
     {
         Section = section;
     }

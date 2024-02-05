@@ -4,10 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<Summary>The asp net core healthcheck package for the Scaffolding lib.</Summary>
+	<Summary>The legacy AutoMapper package for the Scaffolding lib.</Summary>
 	<Description>A scaffolding lib to handle common code for a basic application.</Description>
-	<AssemblyName>Scaffolding.HealthCheck</AssemblyName>
-	<PackageId>Scaffolding.HealthCheck</PackageId>
+	<AssemblyName>Scaffolding.LegacyAutoMapper</AssemblyName>
+	<PackageId>Scaffolding.LegacyAutoMapper</PackageId>
 	<PackageIcon>icon.png</PackageIcon>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<Authors>Eduardo Cabral</Authors>
@@ -17,21 +17,14 @@
 	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup>
 		<None Include="..\..\icon.png" Pack="true" PackagePath="" Visible="False" />
 		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
 	</ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="8.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="8.0.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Scaffolding.Configuration\Scaffolding.Configuration.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Scaffolding.Extensions.Logging;
+namespace Scaffolding.Logging;
 
 public class LogAdditionalInformation
 {
