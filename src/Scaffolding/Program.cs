@@ -1,89 +1,50 @@
-﻿using Microsoft.AspNetCore.Http.Json;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+﻿using Destructurama.Attributed;
 
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+using Newtonsoft.Json.Serialization;
+
+using Scaffolding.AspNetCore.Filters;
 using Scaffolding.Configuration.Builders;
 using Scaffolding.Configuration.Settings.Implementations;
 using Scaffolding.HealthCheck.Extensions;
-using Scaffolding.Logging.Formatter;
 using Scaffolding.Logging.Settings.Implementations;
-
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var scaffoldingConfiguration = new ScaffoldingConfigurationBuilder(builder.Configuration)
     .With<ApplicationSettings>()
-    .With<LogSettings>("Log")
+    .With<LogSettings>()
     .Build();
 
-var applicationSettings = scaffoldingConfiguration.GetSettings<ApplicationSettings>();
-var logSettings = scaffoldingConfiguration.GetSettings<LogSettings>();
+builder.Configuration.AddUserSecrets<Program>();
 
-//var logger = LoggerBuilder.Instance()
-//    .WithDefaultConfiguration()
-//    .WithProperty("Application", applicationSettings.Name)
-//    .WithProperty("Domain", applicationSettings.Domain)
-//    .WriteToConsoleSnakeCase()
-//    .Build();
+builder.Services
+    .AddScaffoldingSettings(scaffoldingConfiguration)
+    .ConfigureJson(new SnakeCaseNamingStrategy());
 
-var services = builder.Services;
-
-services.AddSingletonScaffoldingServices(scaffoldingConfiguration);
-
-//services.AddScoped(x => logger);
-
-services.AddScaffoldingHealthChecks();
-
-builder.Logging
-    .AddConsole(x => x.FormatterName = nameof(CustomJsonConsoleFormatter))
-    .AddConsoleFormatter<CustomJsonConsoleFormatter, CustomJsonConsoleFormatterOptions>();
-
-builder.Services.AddHttpLogging(x =>
-{
-    x.CombineLogs = true;
-});
-
-builder.Services.Configure<JsonOptions>(options =>
-{
-    options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
-});
+builder.Services.AddSerilogRequestResponseLogging();
 
 var app = builder.Build();
 
-app.UseScaffoldingHealthCheck();
-
-app.UseHttpLogging();
+app.UseSerilogLogging()
+    .UseScaffoldingHealthCheck();
 
 app.MapGet("/", () => "Application Running");
-
-var logger = app.Services.GetRequiredService<ILogger<Program>>();
-
-logger.LogInformation("Teste Template ILogger Microsoft Scaffolding");
+app.MapPost("/post", (Response req) => new Response
+{
+    Email = "a@a.com",
+    Password = "123456",
+}).AddEndpointFilter<RequestResponseLoggingEndpointFilter>();
 
 await app.RunAsync();
 
-//var builder = ScaffoldingApi.Initialize(args);
-
-//builder.UseLogging();
-
-//var healthcheckBuilder = builder.SetupHealthcheck();
-
-//// Example
-//void AddHealthchecks()
-//{
-//    // var externalService (Service instance after configuration and injection)
-//    // healthcheckBuilder.AddUrlGroup(new Uri(externalService.Name), name: "External Service Name");
-
-//    healthcheckBuilder.AddUrlGroup(new Uri("https://www.google.com.br"), name: "Google", tags: new[] { "external" });
-//}
-
-//AddHealthchecks();
-
-//builder.Services.AddMemoryCache();
-
-//var app = builder.Build();
-
-//app.UseDefaultConfiguration();
-
-//await ScaffoldingApi.RunAsync(app);
+class Response
+{
+    public string Email { get; set; }
+    [LogMasked]
+    public string Password { get; set; }
+}

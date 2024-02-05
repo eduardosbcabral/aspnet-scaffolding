@@ -3,11 +3,27 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+	<Summary>The configuration package for the Scaffolding lib.</Summary>
+	<Description>A scaffolding lib to handle common code for a basic application.</Description>
+	<AssemblyName>Scaffolding.Configuration</AssemblyName>
+	<PackageId>Scaffolding.Configuration</PackageId>
+	<PackageIcon>icon.png</PackageIcon>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<Authors>Eduardo Cabral</Authors>
+	<RepositoryUrl>https://github.com/eduardosbcabral/aspnet-scaffolding</RepositoryUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<IsPackable>true</IsPackable>
+	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+	<ItemGroup>
+		<None Include="..\..\icon.png" Pack="true" PackagePath="" Visible="False" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
+	</ItemGroup>
+
   <ItemGroup>
-	<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-	<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

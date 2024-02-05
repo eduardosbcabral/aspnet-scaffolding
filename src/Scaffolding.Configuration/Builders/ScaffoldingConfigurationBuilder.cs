@@ -34,10 +34,9 @@ public class ScaffoldingConfigurationBuilder(IConfiguration configuration)
     /// </summary>
     /// <param name="settings">Instance of an <see cref="ISettings"/>.</param>
     /// <typeparam name="TSettings"></typeparam>
-    public ScaffoldingConfigurationBuilder With<TSettings>(string section = "") where TSettings : BaseSettings, ISettings, new()
+    public ScaffoldingConfigurationBuilder With<TSettings>() where TSettings : ISettings, new()
     {
         var settings = new TSettings();
-        settings.SetSection(section);
         return With(settings);
     }
 

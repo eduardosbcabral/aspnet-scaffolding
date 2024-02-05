@@ -15,9 +15,4 @@ public interface ISettings
     /// Executes settings validation, throwing exception if is invalid.
     /// </summary>
     bool IsValid(out string validationMessage);
-
-    /// <summary>
-    /// Sets appSettings section.
-    /// </summary>
-    void SetSection(string section);
 }

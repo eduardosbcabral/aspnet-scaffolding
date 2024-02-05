@@ -1,8 +1,10 @@
 name: release
 
 on:
-  release:
-    types: [released]
+  push:
+    tags:
+      - '*'
+      - '!*-alpha*'
 
 jobs:
   deploy:
@@ -16,7 +18,7 @@ jobs:
       - run: dotnet build -c Release src/Scaffolding.sln
       
       - name: Create the Scaffolding package
-        run: dotnet pack -c Release --no-build -p:Version=${{github.ref_name}} -o src/Scaffolding/bin/Release src/Scaffolding/Scaffolding.csproj
+        run: dotnet pack -c Release --no-build -p:Version=${{ github.REF_NAME }} -o src/Release src/Scaffolding.sln
 
       - name: Publish the Scaffolding package
-        run: dotnet nuget push src/Scaffolding/bin/Release/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push src/Release/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
