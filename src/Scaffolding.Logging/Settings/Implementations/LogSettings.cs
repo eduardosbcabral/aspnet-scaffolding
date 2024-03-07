@@ -26,4 +26,6 @@ public class LogSettings(string section) : BaseSettings(section), ILogSettings
 
     /// <inheritdoc/>
     public string[] IgnoredRoutes { get; set; } = [];
+
+    public string[] LogHeaders { get; set; } = [];
 }

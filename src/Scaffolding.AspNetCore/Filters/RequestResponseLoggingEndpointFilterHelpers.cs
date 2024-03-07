@@ -2,11 +2,10 @@
 
 internal static class RequestResponseLoggingEndpointFilterHelpers
 {
-
-    private static IDictionary<string, string> GetHeaders(IHeaderDictionary headers)
+    internal static Dictionary<string, string> GetHeaders(IHeaderDictionary headers, string[] headersToLog)
     {
         var dic = new Dictionary<string, string>();
-        foreach (var item in headers)
+        foreach (var item in headers.Where(x => headersToLog.Contains(x.Key)))
         {
             var value = item.Value.ToString();
             dic[item.Key] = value;

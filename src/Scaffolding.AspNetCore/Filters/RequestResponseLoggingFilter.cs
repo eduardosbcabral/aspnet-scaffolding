@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
+
+using Scaffolding.Logging.Settings.Implementations;
 
 using Serilog;
 
@@ -17,7 +20,13 @@ public class RequestResponseLoggingFilter(IDiagnosticContext diagnosticContext) 
 
         if (context.HttpContext.Response.Headers.Any())
         {
-            diagnosticContext.Set("ResponseHeaders", GetHeaders(context.HttpContext.Response.Headers), true);
+            var logSettings = context.HttpContext.RequestServices.GetService<LogSettings>();
+            if (logSettings is not null)
+            {
+                var headers = RequestResponseLoggingEndpointFilterHelpers.GetHeaders(context.HttpContext.Response.Headers, logSettings.LogHeaders);
+                if (headers.Count > 0)
+                    diagnosticContext.Set("ResponseHeaders", headers, true);
+            }
         }
     }
 
@@ -36,19 +45,13 @@ public class RequestResponseLoggingFilter(IDiagnosticContext diagnosticContext) 
 
         if (context.HttpContext.Request.Headers.Any())
         {
-            diagnosticContext.Set("RequestHeaders", GetHeaders(context.HttpContext.Request.Headers), true);
+            var logSettings = context.HttpContext.RequestServices.GetService<LogSettings>();
+            if (logSettings is not null)
+            {
+                var headers = RequestResponseLoggingEndpointFilterHelpers.GetHeaders(context.HttpContext.Request.Headers, logSettings.LogHeaders);
+                if (headers.Count > 0)
+                    diagnosticContext.Set("RequestHeaders", headers, true);
+            }
         }
-    }
-
-    private static Dictionary<string, string> GetHeaders(IHeaderDictionary headers)
-    {
-        var dic = new Dictionary<string, string>();
-        foreach (var item in headers)
-        {
-            var value = item.Value.ToString();
-            dic[item.Key] = value;
-        }
-
-        return dic;
     }
 }
