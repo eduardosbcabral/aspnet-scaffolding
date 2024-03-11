@@ -33,4 +33,9 @@ public static class ApplicationBuilderExtensions
         var applicationSettings = app.ApplicationServices.GetRequiredService<ApplicationSettings>();
         return app.UsePathBase($"{pathBase}/{applicationSettings.Version}");
     }
+
+    public static IApplicationBuilder UseGlobalExceptionHandler(this IApplicationBuilder app)
+    {
+        return app.UseExceptionHandler();
+    }
 }

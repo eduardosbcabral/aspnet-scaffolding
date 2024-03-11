@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,7 +35,7 @@ public class RequestResponseLoggingFilter(IDiagnosticContext diagnosticContext) 
         var action = ((ControllerBase)context.Controller).ControllerContext.ActionDescriptor.ActionName;
 
         diagnosticContext.Set("Controller", controller);
-        diagnosticContext.Set("Operation", $"{action}");
+        diagnosticContext.Set("Operation", action);
 
         if (context.ActionArguments is not null)
         {
