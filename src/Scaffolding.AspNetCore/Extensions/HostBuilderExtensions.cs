@@ -34,7 +34,7 @@ public static class HostBuilderExtensions
                 .Enrich.WithProperty(nameof(applicationSettings.Domain), applicationSettings.Domain)
                 .Enrich.With(new RemovePropertiesEnricher());
 
-            if (context.HostingEnvironment.IsDevelopment())
+            if (!context.HostingEnvironment.IsDevelopment())
             {
                 loggerCfg
                     .WriteTo.Console()

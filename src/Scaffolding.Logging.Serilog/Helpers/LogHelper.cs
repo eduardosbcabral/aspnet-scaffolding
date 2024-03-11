@@ -83,7 +83,7 @@ public static class LogHelper
 
         var authenticationMethod = request.Headers[HeaderNames.Authorization].ToString() switch
         {
-            var authorization when !string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer ") => "Bearer",
+            var authorization when !string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer ") => "JWT",
             _ => "No Auth"
         };
 

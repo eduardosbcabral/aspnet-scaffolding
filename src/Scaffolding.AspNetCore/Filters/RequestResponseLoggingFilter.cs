@@ -12,9 +12,11 @@ public class RequestResponseLoggingFilter(IDiagnosticContext diagnosticContext) 
 {
     public override void OnActionExecuted(ActionExecutedContext context)
     {
-        if (context.Result is not null)
+        var result = context.Result;
+        if (result is ObjectResult objectResult)
         {
-            diagnosticContext.Set("ResponseBody", context.Result, true);
+            var r = objectResult.Value;
+            diagnosticContext.Set("ResponseBody", r, true);
         }
 
         if (context.HttpContext.Response.Headers.Any())
@@ -39,7 +41,15 @@ public class RequestResponseLoggingFilter(IDiagnosticContext diagnosticContext) 
 
         if (context.ActionArguments is not null)
         {
-            diagnosticContext.Set("RequestBody", context.ActionArguments, true);
+            var bodyParameter = context.ActionDescriptor.Parameters.FirstOrDefault(x => x?.BindingInfo?.BindingSource?.Id == "Body");
+            if (bodyParameter is not null)
+            {
+                var bodyValue = context.ActionArguments.FirstOrDefault(x => x.Key == bodyParameter.Name);
+                if (bodyValue.Value is not null)
+                {
+                    diagnosticContext.Set("RequestBody", bodyValue.Value, true);
+                }
+            }
         }
 
         if (context.HttpContext.Request.Headers.Any())
