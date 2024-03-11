@@ -38,7 +38,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Scaffolding.Logging\Scaffolding.Logging.csproj" />
-    <ProjectReference Include="..\Scaffolding.Shared\Scaffolding.Shared.csproj" />
   </ItemGroup>
 
 </Project>
