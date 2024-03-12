@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Sample", "Scaff
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Logging.Serilog", "Scaffolding.Logging.Serilog\Scaffolding.Logging.Serilog.csproj", "{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Shared", "Scaffolding.Shared\Scaffolding.Shared.csproj", "{B52C98FD-6C4E-4B4A-BB19-98D29DE1F9FD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Configuration", "Scaffolding.Configuration\Scaffolding.Configuration.csproj", "{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.HealthCheck", "Scaffolding.HealthCheck\Scaffolding.HealthCheck.csproj", "{95758A46-404E-4960-AF40-D3E2127C73CC}"
@@ -41,10 +39,6 @@ Global
 		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B52C98FD-6C4E-4B4A-BB19-98D29DE1F9FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B52C98FD-6C4E-4B4A-BB19-98D29DE1F9FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B52C98FD-6C4E-4B4A-BB19-98D29DE1F9FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B52C98FD-6C4E-4B4A-BB19-98D29DE1F9FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Release|Any CPU.ActiveCfg = Release|Any CPU

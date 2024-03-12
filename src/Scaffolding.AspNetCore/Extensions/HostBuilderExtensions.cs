@@ -16,7 +16,19 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class HostBuilderExtensions
 {
-    public static IHostBuilder AddSerilogLogging(this IHostBuilder builder, IScaffoldingConfiguration configuration, string requestKeyHeader = "RequestKey")
+    /// <summary>
+    /// Adds serilog logging for the api.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="configuration"></param>
+    /// <param name="requestKeyHeader">Header that will be used to set the request key for tracing across requests.</param>
+    /// <param name="debugAsConsole">Flag that will log json even in development for debugging properties purposes.</param>
+    /// <returns></returns>
+    public static IHostBuilder AddSerilogLogging(
+        this IHostBuilder builder,
+        IScaffoldingConfiguration configuration,
+        string requestKeyHeader = "RequestKey",
+        bool debugAsConsole = false)
     {
         return builder.UseSerilog((context, loggerCfg) =>
         {
@@ -34,7 +46,7 @@ public static class HostBuilderExtensions
                 .Enrich.WithProperty(nameof(applicationSettings.Domain), applicationSettings.Domain)
                 .Enrich.With(new RemovePropertiesEnricher());
 
-            if (!context.HostingEnvironment.IsDevelopment())
+            if (context.HostingEnvironment.IsDevelopment() || debugAsConsole)
             {
                 loggerCfg
                     .WriteTo.Console()
