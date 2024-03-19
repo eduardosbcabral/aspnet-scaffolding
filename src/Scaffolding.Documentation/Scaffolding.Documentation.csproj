@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Summary>The documentation package for the Scaffolding lib.</Summary>
+	<Description>A scaffolding lib to handle common code for a basic application.</Description>
+	<AssemblyName>Scaffolding.Documentation</AssemblyName>
+	<PackageId>Scaffolding.Documentation</PackageId>
+	<PackageIcon>icon.png</PackageIcon>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<Authors>Eduardo Cabral</Authors>
+	<RepositoryUrl>https://github.com/eduardosbcabral/aspnet-scaffolding</RepositoryUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<IsPackable>true</IsPackable>
+	<ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+		<None Include="..\..\icon.png" Pack="true" PackagePath="" Visible="False" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scaffolding.Configuration\Scaffolding.Configuration.csproj" />
+  </ItemGroup>
+
+</Project>

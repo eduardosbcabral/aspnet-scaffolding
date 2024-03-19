@@ -3,7 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding", "Scaffolding\Scaffolding.csproj", "{4BD115C2-4838-41FA-840A-7F57CCCC5B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Sample", "Scaffolding\Scaffolding.Sample.csproj", "{4BD115C2-4838-41FA-840A-7F57CCCC5B7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Logging.Serilog", "Scaffolding.Logging.Serilog\Scaffolding.Logging.Serilog.csproj", "{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Configuration", "Scaffolding.Configuration\Scaffolding.Configuration.csproj", "{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.HealthCheck", "Scaffolding.HealthCheck\Scaffolding.HealthCheck.csproj", "{95758A46-404E-4960-AF40-D3E2127C73CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Caching", "Scaffolding.Caching\Scaffolding.Caching.csproj", "{326E1278-22B9-44E0-9ADF-9A558D57230C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.RateLimiting", "Scaffolding.RateLimiting\Scaffolding.RateLimiting.csproj", "{89DAA664-B2C5-40BD-9F3E-43FAB27F9C27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Caching.Redis", "Scaffolding.Caching.Redis\Scaffolding.Caching.Redis.csproj", "{A13C67CB-ECA0-48F2-92FA-3EF9E4B2343D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Logging", "Scaffolding.Logging\Scaffolding.Logging.csproj", "{982DE53A-B782-4F8D-91B2-9F676A94CDF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.AspNetCore", "Scaffolding.AspNetCore\Scaffolding.AspNetCore.csproj", "{9771140A-C6A9-4C36-9820-7C80FB3A2382}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.Documentation", "Scaffolding.Documentation\Scaffolding.Documentation.csproj", "{2D664765-EE4B-4D68-B81A-1FEBC199D80E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scaffolding.LegacyAutoMapper", "Scaffolding.LegacyAutoMapper\Scaffolding.LegacyAutoMapper.csproj", "{7175610F-5B80-4A40-82E1-B10A197F971B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +35,46 @@ Global
 		{4BD115C2-4838-41FA-840A-7F57CCCC5B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD115C2-4838-41FA-840A-7F57CCCC5B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD115C2-4838-41FA-840A-7F57CCCC5B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1E7E180-1222-4F99-98A7-69B0AE2C8CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE234D6-D794-4AE5-9C86-2E50FB8132D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95758A46-404E-4960-AF40-D3E2127C73CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95758A46-404E-4960-AF40-D3E2127C73CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95758A46-404E-4960-AF40-D3E2127C73CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95758A46-404E-4960-AF40-D3E2127C73CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{326E1278-22B9-44E0-9ADF-9A558D57230C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326E1278-22B9-44E0-9ADF-9A558D57230C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326E1278-22B9-44E0-9ADF-9A558D57230C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{326E1278-22B9-44E0-9ADF-9A558D57230C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89DAA664-B2C5-40BD-9F3E-43FAB27F9C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89DAA664-B2C5-40BD-9F3E-43FAB27F9C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89DAA664-B2C5-40BD-9F3E-43FAB27F9C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89DAA664-B2C5-40BD-9F3E-43FAB27F9C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A13C67CB-ECA0-48F2-92FA-3EF9E4B2343D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A13C67CB-ECA0-48F2-92FA-3EF9E4B2343D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A13C67CB-ECA0-48F2-92FA-3EF9E4B2343D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A13C67CB-ECA0-48F2-92FA-3EF9E4B2343D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{982DE53A-B782-4F8D-91B2-9F676A94CDF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{982DE53A-B782-4F8D-91B2-9F676A94CDF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982DE53A-B782-4F8D-91B2-9F676A94CDF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{982DE53A-B782-4F8D-91B2-9F676A94CDF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9771140A-C6A9-4C36-9820-7C80FB3A2382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9771140A-C6A9-4C36-9820-7C80FB3A2382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9771140A-C6A9-4C36-9820-7C80FB3A2382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9771140A-C6A9-4C36-9820-7C80FB3A2382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D664765-EE4B-4D68-B81A-1FEBC199D80E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D664765-EE4B-4D68-B81A-1FEBC199D80E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D664765-EE4B-4D68-B81A-1FEBC199D80E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D664765-EE4B-4D68-B81A-1FEBC199D80E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7175610F-5B80-4A40-82E1-B10A197F971B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7175610F-5B80-4A40-82E1-B10A197F971B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7175610F-5B80-4A40-82E1-B10A197F971B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7175610F-5B80-4A40-82E1-B10A197F971B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

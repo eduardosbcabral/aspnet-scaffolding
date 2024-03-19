@@ -1,27 +1,50 @@
-﻿using Scaffolding;
-using Scaffolding.Extensions.Healthcheck;
+﻿using Destructurama.Attributed;
 
-var builder = Api.Initialize(args);
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-builder.UseLogging();
+using Newtonsoft.Json.Serialization;
 
-var healthcheckBuilder = builder.SetupHealthcheck();
+using Scaffolding.AspNetCore.Filters;
+using Scaffolding.Configuration.Builders;
+using Scaffolding.Configuration.Settings.Implementations;
+using Scaffolding.HealthCheck.Extensions;
+using Scaffolding.Logging.Settings.Implementations;
 
-// Example
-void AddHealthchecks()
-{
-    // var externalService (Service instance after configuration and injection)
-    // healthcheckBuilder.AddUrlGroup(new Uri(externalService.Name), name: "External Service Name");
+var builder = WebApplication.CreateBuilder(args);
 
-    healthcheckBuilder.AddUrlGroup(new Uri("https://www.google.com.br"), name: "Google", tags: new[] { "external" });
-}
+var scaffoldingConfiguration = new ScaffoldingConfigurationBuilder(builder.Configuration)
+    .With<ApplicationSettings>()
+    .With<LogSettings>()
+    .Build();
 
-AddHealthchecks();
+builder.Configuration.AddUserSecrets<Program>();
 
-builder.Services.AddMemoryCache();
+builder.Services
+    .AddScaffoldingSettings(scaffoldingConfiguration)
+    .ConfigureJson(new SnakeCaseNamingStrategy());
+
+builder.Services.AddSerilogRequestResponseLogging();
 
 var app = builder.Build();
 
-app.UseDefaultConfiguration();
+app.UseSerilogLogging()
+    .UseScaffoldingHealthCheck();
 
-await Api.RunAsync(app);
+app.MapGet("/", () => "Application Running");
+app.MapPost("/post", (Response req) => new Response
+{
+    Email = "a@a.com",
+    Password = "123456",
+}).AddEndpointFilter<RequestResponseLoggingEndpointFilter>();
+
+await app.RunAsync();
+
+class Response
+{
+    public string Email { get; set; }
+    [LogMasked]
+    public string Password { get; set; }
+}

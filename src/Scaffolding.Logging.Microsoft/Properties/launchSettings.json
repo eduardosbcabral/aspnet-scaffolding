@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Scaffolding.Logging.Microsoft": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50299;http://localhost:50300"
+    }
+  }
+}

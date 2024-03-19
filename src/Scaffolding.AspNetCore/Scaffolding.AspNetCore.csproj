@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<Summary>A scaffolding lib to handle common code for a basic application. Scaffolding for asp net core applications.</Summary>
+	<Description>A scaffolding lib to handle common code for a basic application. Scaffolding for asp net core applications.</Description>
+	<AssemblyName>Scaffolding.AspNetCore</AssemblyName>
+	<PackageId>Scaffolding.AspNetCore</PackageId>
+	<PackageIcon>icon.png</PackageIcon>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<Authors>Eduardo Cabral</Authors>
+	<RepositoryUrl>https://github.com/eduardosbcabral/aspnet-scaffolding</RepositoryUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<IsPackable>true</IsPackable>
+	<ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\icon.png" Pack="true" PackagePath="" Visible="False" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
+	</ItemGroup>
+	
+    <ItemGroup>
+	    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Scaffolding.Configuration\Scaffolding.Configuration.csproj" />
+    <ProjectReference Include="..\Scaffolding.Logging.Serilog\Scaffolding.Logging.Serilog.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logging\" />
+  </ItemGroup>
+
+</Project>
